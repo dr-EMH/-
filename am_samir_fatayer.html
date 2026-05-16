@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عم سمير للفطير - إحنا أعمام المجال</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand-red: #C0392B;
+    --brand-amber: #E67E22;
+    --brand-cream: #FDF6EC;
+    --brand-dark: #2C1810;
+    --brand-gold: #D4AC0D;
+    --text-main: #2C1810;
+    --text-muted: #7B5E4A;
+    --border-c: rgba(44,24,16,0.12);
+  }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--brand-cream);
+    min-height: 100vh;
+    direction: rtl;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--brand-dark);
+    padding: 2.5rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(192,57,43,0.08) 0px, rgba(192,57,43,0.08) 2px, transparent 2px, transparent 20px);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--brand-red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    position: relative;
+  }
+  .hero h1 span { color: var(--brand-amber); }
+  .hero-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    position: relative;
+  }
+  .hero-tagline {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 20px;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  /* Steps bar */
+  .steps-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+    border-bottom: 1px solid var(--border-c);
+    padding: 1rem 1.5rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .step-item.active { color: var(--brand-red); }
+  .step-item.done { color: var(--brand-amber); }
+  .step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--brand-cream);
+    border: 2px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-item.active .step-num { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+  .step-item.done .step-num { background: var(--brand-amber); color: #fff; border-color: var(--brand-amber); }
+  .step-arrow { color: var(--border-c); font-size: 1.2rem; padding: 0 4px; }
+
+  /* Main content */
+  .main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 8rem; }
+
+  /* Section title */
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--brand-dark);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title i { color: var(--brand-red); font-size: 1.4rem; }
+
+  /* Branch cards */
+  .branches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .branch-card {
+    background: #fff;
+    border: 2px solid var(--border-c);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    text-align: center;
+  }
+  .branch-card:hover { border-color: var(--brand-amber); transform: translateY(-2px); }
+  .branch-card.selected { border-color: var(--brand-red); background: #FFF5F3; }
+  .branch-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .branch-card h3 { font-size: 1.2rem; font-weight: 900; color: var(--brand-dark); }
+  .branch-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+  .branch-badge {
+    display: inline-block;
+    margin-top: 8px;
+    background: var(--brand-cream);
+    color: var(--text-muted);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border-c);
+  }
+  .branch-card.selected .branch-badge { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+
+  /* Menu */
+  .menu-section { margin-top: 2.5rem; }
+  .category-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .cat-tab {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border-c);
+    background: #fff;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    transition: all 0.15s;
+  }
+  .cat-tab:hover { border-color: var(--brand-amber); color: var(--brand-amber); }
+  .cat-tab.active { background: var(--brand-red); border-color: var(--brand-red); color: #fff; }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .menu-card {
+    background: #fff;
+    border: 1.5px solid var(--border-c);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .menu-card:hover { border-color: var(--brand-amber); transform: translateY(-2px); }
+  .menu-img {
+    width: 100%; height: 120px;
+    background: var(--brand-cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .menu-info { padding: 0.75rem 1rem; }
+  .menu-name { font-weight: 700; font-size: 0.95rem; color: var(--brand-dark); }
+  .menu-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+  .menu-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 10px;
+  }
+  .menu-price { font-weight: 900; font-size: 1.05rem; color: var(--brand-red); }
+  .add-btn {
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    transition: background 0.15s, transform 0.1s;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .add-btn:hover { background: #A93226; }
+  .add-btn:active { transform: scale(0.95); }
+
+  /* Cart bar */
+  .cart-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--brand-dark);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+  }
+  .cart-bar.visible { transform: translateY(0); }
+  .cart-bar-info { font-size: 0.95rem; }
+  .cart-bar-info strong { font-size: 1.1rem; color: var(--brand-amber); }
+  .cart-open-btn {
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* Modal overlay */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 200;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    width: 100%; max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid var(--border-c);
+    padding-bottom: 0.8rem;
+  }
+  .modal-title { font-size: 1.2rem; font-weight: 900; color: var(--brand-dark); }
+  .close-btn {
+    background: var(--brand-cream);
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+  }
+  .cart-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-c);
+  }
+  .cart-item-emoji { font-size: 1.8rem; width: 40px; text-align: center; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 700; font-size: 0.95rem; color: var(--brand-dark); }
+  .cart-item-price { font-size: 0.85rem; color: var(--brand-red); font-weight: 700; }
+  .qty-ctrl { display: flex; align-items: center; gap: 8px; }
+  .qty-btn {
+    background: var(--brand-cream);
+    border: 1px solid var(--border-c);
+    border-radius: 6px;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    font-family: 'Tajawal', sans-serif;
+  }
+  .qty-num { font-weight: 700; min-width: 20px; text-align: center; }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    padding: 1rem 0 0.5rem;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--brand-dark);
+  }
+  .cart-total span:last-child { color: var(--brand-red); }
+  .checkout-btn {
+    width: 100%;
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    margin-top: 0.5rem;
+    transition: background 0.15s;
+  }
+  .checkout-btn:hover { background: #A93226; }
+
+  /* Order form */
+  .form-card {
+    background: #fff;
+    border: 1.5px solid var(--border-c);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .form-row { margin-bottom: 1rem; }
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-c);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: 'Tajawal', sans-serif;
+    color: var(--brand-dark);
+    background: var(--brand-cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--brand-red); }
+  .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pay-card {
+    border: 2px solid var(--border-c);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .pay-card:hover { border-color: var(--brand-amber); }
+  .pay-card.selected { border-color: var(--brand-red); background: #FFF5F3; }
+  .pay-icon { font-size: 2rem; margin-bottom: 4px; }
+  .pay-label { font-size: 0.88rem; font-weight: 700; color: var(--brand-dark); }
+  .pay-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+  .place-order-btn {
+    width: 100%;
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    margin-top: 1.5rem;
+    transition: background 0.15s, transform 0.1s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .place-order-btn:hover { background: #A93226; }
+  .place-order-btn:active { transform: scale(0.98); }
+
+  /* Next btn */
+  .next-btn {
+    background: var(--brand-red);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    margin-top: 1.5rem;
+    transition: background 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .next-btn:hover { background: #A93226; }
+
+  /* Success */
+  .success-screen {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .success-icon { font-size: 5rem; margin-bottom: 1rem; }
+  .success-screen h2 { font-size: 1.8rem; font-weight: 900; color: var(--brand-dark); }
+  .success-screen p { color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6; }
+  .success-order-num {
+    display: inline-block;
+    background: var(--brand-cream);
+    border: 2px dashed var(--brand-amber);
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--brand-dark);
+    letter-spacing: 2px;
+  }
+  .btn-back {
+    background: var(--brand-dark);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    margin-top: 1rem;
+  }
+
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .empty-cart { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.95rem; }
+  .empty-cart i { font-size: 3rem; display: block; margin-bottom: 0.5rem; color: var(--border-c); }
+
+  .vodafone-note {
+    background: #E8F5E9;
+    border: 1px solid #A5D6A7;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: #2E7D32;
+    margin-top: 8px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .vodafone-note.show { display: flex; }
+
+  .error-msg { color: var(--brand-red); font-size: 0.85rem; margin-top: 6px; display: none; }
+  .error-msg.show { display: block; }
+
+  @media (max-width: 500px) {
+    .hero h1 { font-size: 2.5rem; }
+    .menu-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .cart-bar { padding: 0.8rem 1rem; }
+    .main { padding: 1.5rem 1rem 8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">🥧 منذ ١٩٨٥</div>
+  <h1>عم <span>سمير</span></h1>
+  <p class="hero-sub">أشهر فطير مشلتت في مصر</p>
+  <div class="hero-tagline">⭐ إحنا أعمام المجال ⭐</div>
+</div>
+
+<!-- Steps bar -->
+<div class="steps-bar" id="stepsBar">
+  <div class="step-item active" id="step1Ind">
+    <div class="step-num">١</div>
+    <span>اختر الفرع</span>
+  </div>
+  <div class="step-arrow">‹</div>
+  <div class="step-item" id="step2Ind">
+    <div class="step-num">٢</div>
+    <span>اختر الأصناف</span>
+  </div>
+  <div class="step-arrow">‹</div>
+  <div class="step-item" id="step3Ind">
+    <div class="step-num">٣</div>
+    <span>تفاصيل الطلب</span>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Step 1: Branch -->
+  <div id="branchStep" class="fade-in">
+    <div class="section-title"><i class="ti ti-map-pin"></i> اختار فرعك</div>
+    <div class="branches-grid">
+      <div class="branch-card" onclick="selectBranch('giza')" id="branch-giza">
+        <div class="branch-icon">🏙️</div>
+        <h3>فرع الجيزة</h3>
+        <p>شارع السودان، بجوار محطة المترو</p>
+        <div class="branch-badge" id="gbadge">متاح الآن</div>
+      </div>
+      <div class="branch-card" onclick="selectBranch('cairo')" id="branch-cairo">
+        <div class="branch-icon">🌆</div>
+        <h3>فرع القاهرة</h3>
+        <p>وسط البلد، شارع طلعت حرب</p>
+        <div class="branch-badge" id="cbadge">متاح الآن</div>
+      </div>
+    </div>
+    <div class="error-msg" id="branchError">
+      <i class="ti ti-alert-circle"></i> اختار فرع الأول عشان تكمل
+    </div>
+    <button class="next-btn" onclick="goToMenu()">
+      <i class="ti ti-arrow-left"></i> كمّل للمينيو
+    </button>
+  </div>
+
+  <!-- Step 2: Menu -->
+  <div id="menuStep" class="hidden">
+    <div class="section-title" id="menuTitle"><i class="ti ti-tool-kitchen-2"></i> مينيو الفرع</div>
+    <div class="category-tabs" id="catTabs"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+
+  <!-- Step 3: Order form -->
+  <div id="orderStep" class="hidden fade-in">
+    <div class="section-title"><i class="ti ti-clipboard-list"></i> تفاصيل الطلب</div>
+
+    <!-- Order summary -->
+    <div class="form-card" style="margin-bottom:1.2rem;">
+      <div style="font-weight:700;color:var(--brand-dark);margin-bottom:10px;font-size:0.95rem;">🛒 ملخص الطلب</div>
+      <div id="orderSummaryList"></div>
+      <div class="cart-total">
+        <span>الإجمالي</span>
+        <span id="orderTotal"></span>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-phone"></i> رقم التليفون</label>
+        <input class="form-input" type="tel" id="phoneInput" placeholder="01XXXXXXXXX" maxlength="11">
+        <div class="error-msg" id="phoneError">من فضلك أدخل رقم تليفون صحيح</div>
+      </div>
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-map-pin"></i> عنوان التوصيل</label>
+        <input class="form-input" type="text" id="addressInput" placeholder="المنطقة، الشارع، رقم البناية...">
+        <div class="error-msg" id="addressError">من فضلك أدخل عنوانك</div>
+      </div>
+      <div class="form-row">
+        <label class="form-label"><i class="ti ti-credit-card"></i> طريقة الدفع</label>
+        <div class="pay-options">
+          <div class="pay-card selected" onclick="selectPay('cash')" id="pay-cash">
+            <div class="pay-icon">💵</div>
+            <div class="pay-label">كاش عند الاستلام</div>
+            <div class="pay-sub">هتدفع لما توصلك</div>
+          </div>
+          <div class="pay-card" onclick="selectPay('vodafone')" id="pay-vodafone">
+            <div class="pay-icon">📱</div>
+            <div class="pay-label">فودافون كاش</div>
+            <div class="pay-sub">تحويل فوري</div>
+          </div>
+        </div>
+        <div class="vodafone-note" id="vodafoneNote">
+          <span>📲</span>
+          <span>هيتواصل معاك أحد من الفريق بيبعتلك رقم فودافون كاش للتحويل قبل التوصيل</span>
+        </div>
+      </div>
+
+      <button class="place-order-btn" onclick="placeOrder()">
+        <i class="ti ti-check"></i> اطلب دلوقتي
+      </button>
+    </div>
+
+    <button onclick="backToMenu()" style="background:none;border:none;color:var(--text-muted);font-family:'Tajawal',sans-serif;font-size:0.9rem;cursor:pointer;margin-top:1rem;display:flex;align-items:center;gap:6px;">
+      <i class="ti ti-arrow-right"></i> ارجع للمينيو
+    </button>
+  </div>
+
+  <!-- Success -->
+  <div id="successStep" class="hidden fade-in">
+    <div class="success-screen">
+      <div class="success-icon">🎉</div>
+      <h2>طلبك اتسجل!</h2>
+      <div class="success-order-num" id="orderNum">#00000</div>
+      <p>شكراً ليك! طلبك وصل لفريق عم سمير وهيتواصلوا معاك في أقرب وقت للتأكيد.</p>
+      <p style="margin-top:0.5rem;font-size:0.85rem;">⏱️ وقت التوصيل المتوقع: ٣٠-٤٥ دقيقة</p>
+      <button class="btn-back" onclick="resetAll()">🏠 رجوع للرئيسية</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Cart bar -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-bar-info">
+    <div style="font-size:0.8rem;opacity:0.7;">السلة</div>
+    <strong id="cartCount">0 صنف</strong> · <span id="cartTotalBar">0 جنيه</span>
+  </div>
+  <button class="cart-open-btn" onclick="openCart()">
+    <i class="ti ti-shopping-cart"></i> اعرض السلة
+  </button>
+</div>
+
+<!-- Cart Modal -->
+<div class="overlay" id="cartOverlay" onclick="closeCartIfOutside(event)">
+  <div class="modal" id="cartModal">
+    <div class="modal-header">
+      <div class="modal-title">🛒 السلة</div>
+      <button class="close-btn" onclick="closeCart()" aria-label="إغلاق"><i class="ti ti-x"></i></button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="cartEmpty" class="empty-cart hidden">
+      <i class="ti ti-shopping-cart-off"></i>
+      السلة فاضية، أضف أصناف من المينيو!
+    </div>
+    <div id="cartFooter" class="hidden">
+      <div class="cart-total">
+        <span>الإجمالي</span>
+        <span id="cartTotalModal">0 جنيه</span>
+      </div>
+      <button class="checkout-btn" onclick="goToOrder()">
+        <i class="ti ti-truck-delivery"></i> اطلب دلوقتي
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const menuData = {
+  giza: {
+    name: 'فرع الجيزة',
+    items: [
+      { id:1, name:'فطير سادة', cat:'سادة', emoji:'🥧', desc:'فطير مشلتت أصلي بالسمن البلدي', price:25 },
+      { id:2, name:'فطير بالجبنة', cat:'مالح', emoji:'🧀', desc:'فطير بجبنة بيضاء وجبنة رومي', price:35 },
+      { id:3, name:'فطير باللحمة', cat:'مالح', emoji:'🥩', desc:'فطير بالفراخ المفرومة والبهارات', price:55 },
+      { id:4, name:'فطير بالعسل', cat:'حلو', emoji:'🍯', desc:'فطير ساخن بالعسل والزبدة', price:30 },
+      { id:5, name:'فطير بالكريمة', cat:'حلو', emoji:'🍮', desc:'فطير مع كريمة الشانتيه الطازجة', price:40 },
+      { id:6, name:'سوبيا بلدي', cat:'مشروبات', emoji:'🥛', desc:'سوبيا طازجة محلية الصنع', price:20 },
+      { id:7, name:'فطير بيض وجبنة', cat:'مالح', emoji:'🍳', desc:'فطير بالبيض والجبنة البيضاء', price:40 },
+      { id:8, name:'كنافة عم سمير', cat:'حلو', emoji:'🍰', desc:'كنافة بالقشطة والقطر اللذيذ', price:35 },
+    ]
+  },
+  cairo: {
+    name: 'فرع القاهرة',
+    items: [
+      { id:1, name:'فطير سادة', cat:'سادة', emoji:'🥧', desc:'فطير مشلتت أصلي بالسمن البلدي', price:30 },
+      { id:2, name:'فطير بالجبنة', cat:'مالح', emoji:'🧀', desc:'فطير بجبنة بيضاء وجبنة رومي', price:40 },
+      { id:3, name:'فطير بالدجاج', cat:'مالح', emoji:'🍗', desc:'فطير بالدجاج المشوي والخضار', price:60 },
+      { id:4, name:'سوبيا بالماء الورد', cat:'مشروبات', emoji:'🥛', desc:'سوبيا طازجة بالماء الورد', price:22 },
+      { id:5, name:'فطير عسل وزبدة', cat:'حلو', emoji:'🍯', desc:'فطير بالعسل الأبيض والزبدة الفرنساوي', price:38 },
+      { id:6, name:'فطير بالمربى', cat:'حلو', emoji:'🍓', desc:'فطير بمربى الفراولة الطازجة', price:32 },
+      { id:7, name:'فطير تونة', cat:'مالح', emoji:'🐟', desc:'فطير بالتونة والخضار الطازجة', price:45 },
+      { id:8, name:'قمر الدين', cat:'مشروبات', emoji:'🍹', desc:'عصير قمر الدين الطبيعي المنعش', price:18 },
+      { id:9, name:'فطير شكولاتة', cat:'حلو', emoji:'🍫', desc:'فطير بكريمة الشكولاتة والمكسرات', price:45 },
+    ]
+  }
+};
+
+let selectedBranch = null;
+let cart = [];
+let selectedPayMethod = 'cash';
+let currentCat = 'الكل';
+
+function selectBranch(b) {
+  selectedBranch = b;
+  document.querySelectorAll('.branch-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('branch-' + b).classList.add('selected');
+  document.getElementById('branchError').classList.remove('show');
+}
+
+function goToMenu() {
+  if (!selectedBranch) {
+    document.getElementById('branchError').classList.add('show');
+    return;
+  }
+  document.getElementById('branchStep').classList.add('hidden');
+  document.getElementById('menuStep').classList.remove('hidden');
+  document.getElementById('menuStep').classList.add('fade-in');
+  setStep(2);
+  currentCat = 'الكل';
+  renderMenu();
+}
+
+function renderMenu() {
+  const data = menuData[selectedBranch];
+  document.getElementById('menuTitle').innerHTML = `<i class="ti ti-tool-kitchen-2"></i> مينيو ${data.name}`;
+  const cats = ['الكل', ...new Set(data.items.map(i => i.cat))];
+  const tabs = document.getElementById('catTabs');
+  tabs.innerHTML = cats.map(c =>
+    `<button class="cat-tab${c === currentCat ? ' active' : ''}" onclick="filterCat('${c}')">${c}</button>`
+  ).join('');
+  const grid = document.getElementById('menuGrid');
+  const filtered = currentCat === 'الكل' ? data.items : data.items.filter(i => i.cat === currentCat);
+  grid.innerHTML = filtered.map(item => `
+    <div class="menu-card">
+      <div class="menu-img">${item.emoji}</div>
+      <div class="menu-info">
+        <div class="menu-name">${item.name}</div>
+        <div class="menu-desc">${item.desc}</div>
+        <div class="menu-footer">
+          <div class="menu-price">${item.price} جنيه</div>
+          <button class="add-btn" onclick="addToCart(${item.id})">
+            <i class="ti ti-plus"></i> أضف
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCat(cat) {
+  currentCat = cat;
+  renderMenu();
+}
+
+function addToCart(id) {
+  const item = menuData[selectedBranch].items.find(i => i.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ ...item, qty: 1 });
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = count + ' صنف';
+  document.getElementById('cartTotalBar').textContent = total + ' جنيه';
+  const bar = document.getElementById('cartBar');
+  if (count > 0) bar.classList.add('visible');
+  else bar.classList.remove('visible');
+
+  const itemsEl = document.getElementById('cartItems');
+  const emptyEl = document.getElementById('cartEmpty');
+  const footerEl = document.getElementById('cartFooter');
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = '';
+    emptyEl.classList.remove('hidden');
+    footerEl.classList.add('hidden');
+  } else {
+    emptyEl.classList.add('hidden');
+    footerEl.classList.remove('hidden');
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-emoji">${item.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.price * item.qty} جنيه</div>
+        </div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('cartTotalModal').textContent = total + ' جنيه';
+  }
+}
+
+function changeQty(id, delta) {
+  const idx = cart.findIndex(c => c.id === id);
+  if (idx === -1) return;
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  updateCartUI();
+}
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
+function closeCartIfOutside(e) {
+  if (e.target === document.getElementById('cartOverlay')) closeCart();
+}
+
+function goToOrder() {
+  closeCart();
+  document.getElementById('menuStep').classList.add('hidden');
+  document.getElementById('orderStep').classList.remove('hidden');
+  setStep(3);
+  renderOrderSummary();
+}
+
+function renderOrderSummary() {
+  const list = document.getElementById('orderSummaryList');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  list.innerHTML = cart.map(i => `
+    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border-c);font-size:0.9rem;">
+      <span>${i.emoji} ${i.name} × ${i.qty}</span>
+      <span style="font-weight:700;">${i.price * i.qty} جنيه</span>
+    </div>
+  `).join('');
+  document.getElementById('orderTotal').textContent = total + ' جنيه';
+}
+
+function backToMenu() {
+  document.getElementById('orderStep').classList.add('hidden');
+  document.getElementById('menuStep').classList.remove('hidden');
+  setStep(2);
+}
+
+function selectPay(type) {
+  selectedPayMethod = type;
+  document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('pay-' + type).classList.add('selected');
+  const note = document.getElementById('vodafoneNote');
+  if (type === 'vodafone') note.classList.add('show');
+  else note.classList.remove('show');
+}
+
+function placeOrder() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  const address = document.getElementById('addressInput').value.trim();
+  let valid = true;
+
+  if (!phone || phone.length < 10 || !/^0[0-9]{10}$/.test(phone)) {
+    document.getElementById('phoneError').classList.add('show');
+    document.getElementById('phoneInput').style.borderColor = 'var(--brand-red)';
+    valid = false;
+  } else {
+    document.getElementById('phoneError').classList.remove('show');
+    document.getElementById('phoneInput').style.borderColor = '';
+  }
+
+  if (!address) {
+    document.getElementById('addressError').classList.add('show');
+    document.getElementById('addressInput').style.borderColor = 'var(--brand-red)';
+    valid = false;
+  } else {
+    document.getElementById('addressError').classList.remove('show');
+    document.getElementById('addressInput').style.borderColor = '';
+  }
+
+  if (!valid) return;
+
+  const num = '#' + Math.floor(10000 + Math.random() * 90000);
+  document.getElementById('orderNum').textContent = num;
+  document.getElementById('orderStep').classList.add('hidden');
+  document.getElementById('successStep').classList.remove('hidden');
+  document.getElementById('cartBar').classList.remove('visible');
+  cart = [];
+}
+
+function resetAll() {
+  selectedBranch = null;
+  cart = [];
+  currentCat = 'الكل';
+  selectedPayMethod = 'cash';
+  document.getElementById('successStep').classList.add('hidden');
+  document.getElementById('branchStep').classList.remove('hidden');
+  document.querySelectorAll('.branch-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('phoneInput').value = '';
+  document.getElementById('addressInput').value = '';
+  document.getElementById('phoneError').classList.remove('show');
+  document.getElementById('addressError').classList.remove('show');
+  document.getElementById('vodafoneNote').classList.remove('show');
+  document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('pay-cash').classList.add('selected');
+  setStep(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setStep(n) {
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById('step' + i + 'Ind');
+    el.classList.remove('active', 'done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
+  }
+}
+</script>
+</body>
+</html>
